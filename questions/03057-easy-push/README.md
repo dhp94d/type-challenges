@@ -1,3 +1,30 @@
+**정답**
+
+```ts
+/* _____________ Your Code Here _____________ */
+
+type Push<T extends unknown[], U> = [...T, U]
+
+/* _____________ Test Cases _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<Push<[], 1>, [1]>>,
+  Expect<Equal<Push<[1, 2], '3'>, [1, 2, '3']>>,
+  Expect<Equal<Push<['1', 2, '3'], boolean>, ['1', 2, '3', boolean]>>,
+]
+```
+**해설**
+Array타입을 이해하고 있는지 확인하는 문제
+
+
+1. <T, K extends keyof T> : T의 키들의 유니온타입을 K에 대입
+
+2. [key in K] : key를 K의 타입들만 들어오게 선언
+
+3.  T[key] : 해당 key의 값으로 T[key] 값 대입
+
+
 <!--info-header-start--><h1>Push <img src="https://img.shields.io/badge/-easy-7aad0c" alt="easy"/> <img src="https://img.shields.io/badge/-%23array-999" alt="#array"/></h1><blockquote><p>by jiangshan <a href="https://github.com/jiangshanmeta" target="_blank">@jiangshanmeta</a></p></blockquote><p><a href="https://tsch.js.org/3057/play" target="_blank"><img src="https://img.shields.io/badge/-Take%20the%20Challenge-3178c6?logo=typescript&logoColor=white" alt="Take the Challenge"/></a> &nbsp;&nbsp;&nbsp;<a href="./README.zh-CN.md" target="_blank"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-gray" alt="简体中文"/></a>  <a href="./README.ja.md" target="_blank"><img src="https://img.shields.io/badge/-%E6%97%A5%E6%9C%AC%E8%AA%9E-gray" alt="日本語"/></a>  <a href="./README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-gray" alt="한국어"/></a> </p><!--info-header-end-->
 
 Implement the generic version of ```Array.push```
