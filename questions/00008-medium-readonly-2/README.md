@@ -1,3 +1,56 @@
+**정답**
+
+```ts
+/* _____________ Your Code Here _____________ */
+
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+  readonly [P in K]: T[P];
+} & {[P in keyof T as P extends K ? never : P]: T[P] }
+
+/* _____________ Test Cases _____________ */
+import type { Alike, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Alike<MyReadonly2<Todo1>, Readonly<Todo1>>>,
+  Expect<Alike<MyReadonly2<Todo1, 'title' | 'description'>, Expected>>,
+  Expect<Alike<MyReadonly2<Todo2, 'title' | 'description'>, Expected>>,
+  Expect<Alike<MyReadonly2<Todo2, 'description' >, Expected>>,
+]
+
+// @ts-expect-error
+type error = MyReadonly2<Todo1, 'title' | 'invalid'>
+
+interface Todo1 {
+  title: string
+  description?: string
+  completed: boolean
+}
+
+interface Todo2 {
+  readonly title: string
+  description?: string
+  completed: boolean
+}
+
+interface Expected {
+  readonly title: string
+  readonly description?: string
+  completed: boolean
+}
+
+```
+
+**해설**
+
+Omit과 Pick의 and연산자를 직접 구현할 수 있는지 없는지 확인하는 문제입니다.
+
+
+1. ' K extends keyof T = keyof T' K의 초기값을 keyof T로 지정해준 뒤, T[K] 값들을 readonly로 만들어 줍니다.
+2. {[P in keyof T as P extends K ? never : P]: T[P] }: K가 프로퍼티만 들고와서 P로 정의후 타입을 만들어줍니다.
+
+1 & 2 엔드연산자를 통해 합쳐서 만들어줍니다.
+
+
 <!--info-header-start--><h1>Readonly 2 <img src="https://img.shields.io/badge/-medium-d9901a" alt="medium"/> <img src="https://img.shields.io/badge/-%23readonly-999" alt="#readonly"/> <img src="https://img.shields.io/badge/-%23object--keys-999" alt="#object-keys"/></h1><blockquote><p>by Anthony Fu <a href="https://github.com/antfu" target="_blank">@antfu</a></p></blockquote><p><a href="https://tsch.js.org/8/play" target="_blank"><img src="https://img.shields.io/badge/-Take%20the%20Challenge-3178c6?logo=typescript&logoColor=white" alt="Take the Challenge"/></a> &nbsp;&nbsp;&nbsp;<a href="./README.zh-CN.md" target="_blank"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-gray" alt="简体中文"/></a>  <a href="./README.ja.md" target="_blank"><img src="https://img.shields.io/badge/-%E6%97%A5%E6%9C%AC%E8%AA%9E-gray" alt="日本語"/></a>  <a href="./README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-gray" alt="한국어"/></a>  <a href="./README.pt-BR.md" target="_blank"><img src="https://img.shields.io/badge/-Portugu%C3%AAs%20(BR)-gray" alt="Português (BR)"/></a> </p><!--info-header-end-->
 
 Implement a generic `MyReadonly2<T, K>` which takes two type argument `T` and `K`.
