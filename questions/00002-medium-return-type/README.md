@@ -3,35 +3,55 @@
 ```ts
 /* _____________ Your Code Here _____________ */
 
-type MyReturnType<T> = T extends (...args: any) => infer F ? F : never; 
+type MyOmit<T, K extends keyof T> = {
+  [P in keyof T as P extends K ? never : P]: T[P];
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
 type cases = [
-  Expect<Equal<string, MyReturnType<() => string>>>,
-  Expect<Equal<123, MyReturnType<() => 123>>>,
-  Expect<Equal<ComplexObject, MyReturnType<() => ComplexObject>>>,
-  Expect<Equal<Promise<boolean>, MyReturnType<() => Promise<boolean>>>>,
-  Expect<Equal<() => 'foo', MyReturnType<() => () => 'foo'>>>,
-  Expect<Equal<1 | 2, MyReturnType<typeof fn>>>,
-  Expect<Equal<1 | 2, MyReturnType<typeof fn1>>>,
+  Expect<Equal<Expected1, MyOmit<Todo, 'description'>>>,
+  Expect<Equal<Expected2, MyOmit<Todo, 'description' | 'completed'>>>,
+  Expect<Equal<Expected3, MyOmit<Todo1, 'description' | 'completed'>>>,
 ]
 
-type ComplexObject = {
-  a: [12, 'foo']
-  bar: 'hello'
-  prev(): number
+// @ts-expect-error
+type error = MyOmit<Todo, 'description' | 'invalid'>
+
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
 }
 
-const fn = (v: boolean) => v ? 1 : 2
-const fn1 = (v: boolean, w: any) => v ? 1 : 2
+interface Todo1 {
+  readonly title: string
+  description: string
+  completed: boolean
+}
+
+interface Expected1 {
+  title: string
+  completed: boolean
+}
+
+interface Expected2 {
+  title: string
+}
+
+interface Expected3 {
+  readonly title: string
+}
+
 ```
 **해설**
-조건부 타입과 infer never에 대해 이해도가 있나 묻는 문제입니다.
-return type을 infer F에 저장해두고, T가 정의된 타입과 같으면 F를, 아니면 never를 반환하여 타입안정성을 보장합니다.
-type MyReturnType<T extends Function> 로 조금더 강하게 조건을 걸 수도 있습니다.
-
+매핑된 타입에서의 in as를 알고 있어야 풀 수 있습니다.
+[P in keyof T as P extends K ? never : P]: T[P];
+1. P in keyof T
+ P는 T의 키 순회값입니다.
+ 2. as P extends K ? never : P
+ as를 통해 위의값을 단언해줍니다. 만약 P가 K이면 never로 불가능한 상태라고 알려줍니다.
 
 
 
