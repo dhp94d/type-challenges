@@ -12,7 +12,6 @@
 <a href="./questions/00011-easy-tuple-to-object/README.md" target="_blank"><img src="https://img.shields.io/badge/-11%E3%83%BBTuple%20to%20Object-7aad0c" alt="11・Tuple to Object"/></a>
 <a href="./questions/00014-easy-first/README.md" target="_blank"><img src="https://img.shields.io/badge/-14%E3%83%BBFirst%20of%20Array-7aad0c" alt="14・First of Array"/></a>
 <a href="./questions/00018-easy-tuple-length/README.md" target="_blank"><img src="https://img.shields.io/badge/-18%E3%83%BBLength%20of%20Tuple-7aad0c" alt="18・Length of Tuple"/></a>
-<a href="./questions/00043-easy-exclude/README.md" target="_blank"><img src="https://img.shields.io/badge/-43%E3%83%BBExclude-7aad0c" alt="43・Exclude"/></a>
 <a href="./questions/00189-easy-awaited/README.md" target="_blank"><img src="https://img.shields.io/badge/-189%E3%83%BBAwaited-7aad0c" alt="189・Awaited"/></a>
 <a href="./questions/00268-easy-if/README.md" target="_blank"><img src="https://img.shields.io/badge/-268%E3%83%BBIf-7aad0c" alt="268・If"/></a>
 <a href="./questions/00533-easy-concat/README.md" target="_blank"><img src="https://img.shields.io/badge/-533%E3%83%BBConcat-7aad0c" alt="533・Concat"/></a>
@@ -29,10 +28,6 @@
 <a href="./questions/00016-medium-pop/README.md" target="_blank"><img src="https://img.shields.io/badge/-16%E3%83%BBPop-d9901a" alt="16・Pop"/></a>
 <a href="./questions/00020-medium-promise-all/README.md" target="_blank"><img src="https://img.shields.io/badge/-20%E3%83%BBPromise.all-d9901a" alt="20・Promise.all"/></a>
 <a href="./questions/00062-medium-type-lookup/README.md" target="_blank"><img src="https://img.shields.io/badge/-62%E3%83%BBType%20Lookup-d9901a" alt="62・Type Lookup"/></a>
-<br>
-
-## Challenges
-
 <br>
 
 <!--challenges-start-->
