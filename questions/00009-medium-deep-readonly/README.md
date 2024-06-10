@@ -1,3 +1,73 @@
+**정답**
+
+```ts
+/* _____________ Your Code Here _____________ */
+
+type DeepReadonly<T> = T extends object ? T extends Function ? T : { readonly [K in keyof T] : DeepReadonly<T[K]>} : T
+
+type a = DeepReadonly<X1>
+/* _____________ Test Cases _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<DeepReadonly<X1>, Expected1>>,
+  Expect<Equal<DeepReadonly<X2>, Expected2>>,
+]
+
+type X1 = {
+  a: () => 22
+  b: null
+  c: {
+    d: boolean
+    e: {
+      g: {
+        h: {
+          i: true
+          j: 'string'
+        }
+        k: 'hello'
+      }
+      l: [
+        'hi',
+        {
+          m: ['hey']
+        },
+      ]
+    }
+  }
+}
+
+type X2 = { a: string } | { b: number }
+
+type Expected1 = {
+  readonly a: () => 22
+  readonly b: null
+  readonly c: {
+    readonly d: boolean
+    readonly e: {
+      readonly g: {
+        readonly h: {
+          readonly i: true
+          readonly j: 'string'
+        }
+        readonly k: 'hello'
+      }
+      readonly l: readonly [
+        'hi',
+        {
+          readonly m: readonly ['hey']
+        },
+      ]
+    }
+  }
+}
+
+type Expected2 = { readonly a: string } | { readonly b: number }
+```
+**해설**
+재귀를 통한 DeepReadonly를 구현하는 문제 재귀에 대한 이해가 잇어야 풀 수 있습니다.
+
+
 <!--info-header-start--><h1>Deep Readonly <img src="https://img.shields.io/badge/-medium-d9901a" alt="medium"/> <img src="https://img.shields.io/badge/-%23readonly-999" alt="#readonly"/> <img src="https://img.shields.io/badge/-%23object--keys-999" alt="#object-keys"/> <img src="https://img.shields.io/badge/-%23deep-999" alt="#deep"/></h1><blockquote><p>by Anthony Fu <a href="https://github.com/antfu" target="_blank">@antfu</a></p></blockquote><p><a href="https://tsch.js.org/9/play" target="_blank"><img src="https://img.shields.io/badge/-Take%20the%20Challenge-3178c6?logo=typescript&logoColor=white" alt="Take the Challenge"/></a> &nbsp;&nbsp;&nbsp;<a href="./README.zh-CN.md" target="_blank"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-gray" alt="简体中文"/></a>  <a href="./README.ja.md" target="_blank"><img src="https://img.shields.io/badge/-%E6%97%A5%E6%9C%AC%E8%AA%9E-gray" alt="日本語"/></a>  <a href="./README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-gray" alt="한국어"/></a>  <a href="./README.pt-BR.md" target="_blank"><img src="https://img.shields.io/badge/-Portugu%C3%AAs%20(BR)-gray" alt="Português (BR)"/></a> </p><!--info-header-end-->
 
 Implement a generic `DeepReadonly<T>` which make every parameter of an object - and its sub-objects recursively - readonly.
