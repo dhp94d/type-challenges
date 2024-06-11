@@ -1,3 +1,25 @@
+**정답**
+
+```ts
+/* _____________ Your Code Here _____________ */
+type Last<T extends unknown[]> = [unknown,...T][T["length"]];
+
+type a = [2,3]['length']
+/* _____________ Test Cases _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<Last<[2]>, 2>>,
+  Expect<Equal<Last<[3, 2, 1]>, 1>>,
+  Expect<Equal<Last<[() => 123, { a: string }]>, { a: string }>>,
+]
+```
+
+**해설**
+
+T["length"]로 배열길이를 구할 수 있고, 타입스크립트는 타입 안정성 및 오류를 보장하는데 중점을 두었기에 
+컴파일 시 산술연산이 안된다는것을 알고 있어야하며, 이를위해 배열을 늘리는 트릭을 알 수 있어야 합니다.
+
 <!--info-header-start--><h1>Last of Array <img src="https://img.shields.io/badge/-medium-d9901a" alt="medium"/> <img src="https://img.shields.io/badge/-%23array-999" alt="#array"/></h1><blockquote><p>by Anthony Fu <a href="https://github.com/antfu" target="_blank">@antfu</a></p></blockquote><p><a href="https://tsch.js.org/15/play" target="_blank"><img src="https://img.shields.io/badge/-Take%20the%20Challenge-3178c6?logo=typescript&logoColor=white" alt="Take the Challenge"/></a> &nbsp;&nbsp;&nbsp;<a href="./README.zh-CN.md" target="_blank"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-gray" alt="简体中文"/></a>  <a href="./README.ja.md" target="_blank"><img src="https://img.shields.io/badge/-%E6%97%A5%E6%9C%AC%E8%AA%9E-gray" alt="日本語"/></a>  <a href="./README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-%ED%95%9C%EA%B5%AD%EC%96%B4-gray" alt="한국어"/></a> </p><!--info-header-end-->
 
 > TypeScript 4.0 is recommended in this challenge
