@@ -1,3 +1,31 @@
+**정답**
+
+```ts
+type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
+
+// declare function PromiseAll<T extends readonly unknown[]>(values: readonly [...T]): Promise<{ [K in keyof T]: Awaited<T[K]> }>;
+
+declare function PromiseAll<T extends readonly unknown[]>(values: readonly [...T]): Promise<{[K in keyof T]: Awaited<T[K]> }>
+
+/* _____________ Test Cases _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+const promiseAllTest1 = PromiseAll([1, 2, 3] as const)
+const promiseAllTest2 = PromiseAll([1, 2, Promise.resolve(3)] as const)
+const promiseAllTest3 = PromiseAll([1, 2, Promise.resolve(3)])
+const promiseAllTest4 = PromiseAll<Array<number | Promise<number>>>([1, 2, 3])
+
+type cases = [
+  Expect<Equal<typeof promiseAllTest1, Promise<[1, 2, 3]>>>,
+  Expect<Equal<typeof promiseAllTest2, Promise<[1, 2, number]>>>,
+  Expect<Equal<typeof promiseAllTest3, Promise<[number, number, number]>>>,
+  Expect<Equal<typeof promiseAllTest4, Promise<number[]>>>,
+]
+```
+**해설**
+Promise와 [...T] 문법을 알 수 있어야 풀 수 있습니다.
+
+
 <!--info-header-start--><h1>Promise.all <img src="https://img.shields.io/badge/-medium-d9901a" alt="medium"/> <img src="https://img.shields.io/badge/-%23array-999" alt="#array"/> <img src="https://img.shields.io/badge/-%23promise-999" alt="#promise"/></h1><blockquote><p>by Anthony Fu <a href="https://github.com/antfu" target="_blank">@antfu</a></p></blockquote><p><a href="https://tsch.js.org/20/play" target="_blank"><img src="https://img.shields.io/badge/-Take%20the%20Challenge-3178c6?logo=typescript&logoColor=white" alt="Take the Challenge"/></a> &nbsp;&nbsp;&nbsp;<a href="./README.zh-CN.md" target="_blank"><img src="https://img.shields.io/badge/-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-gray" alt="简体中文"/></a>  <a href="./README.ja.md" target="_blank"><img src="https://img.shields.io/badge/-%E6%97%A5%E6%9C%AC%E8%AA%9E-gray" alt="日本語"/></a> </p><!--info-header-end-->
 
 Type the function `PromiseAll` that accepts an array of PromiseLike objects, the returning value should be `Promise<T>` where `T` is the resolved result array.
